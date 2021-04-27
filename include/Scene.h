@@ -15,6 +15,7 @@ private:
 public:
     Scene();
     std::shared_ptr<Cloth> clothObject() const { return m_cloth; };
+    void timeStep();
 
 signals:
     void changed();

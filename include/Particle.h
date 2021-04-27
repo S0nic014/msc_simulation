@@ -22,7 +22,8 @@ public:
 
     void drawSphere() const;
     void addForce(ngl::Vec3 force);
-    void offsetPosition(const ngl::Vec3 offset);
+    void applyGravity(const float gravityValue = 0.01);
+    void offsetPosition(const ngl::Vec3 offset, bool ignorePinned = false);
     void addToNormal(ngl::Vec3 normal);
     void timeStep(const float damping, const float stepSize);
 };

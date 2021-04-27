@@ -52,7 +52,7 @@ void Viewport::initializeGL()
     ngl::VAOPrimitives::createLineGrid("floor", 40, 40, 100);
     ngl::VAOPrimitives::createSphere("particleSphere", 0.1, 100);
     m_view = ngl::lookAt({0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
-    startTimer(10);
+    startTimer(0);
 }
 
 void Viewport::loadMatrixToColourShader(ngl::Transformation &_tx)
@@ -94,7 +94,6 @@ void Viewport::paintGL()
 
 void Viewport::timerEvent(QTimerEvent *)
 {
-    m_scene->clothObject()->windForce(ngl::Vec3(0.5f, 0.0f, 0.2f) * 0.05f);
-    m_scene->clothObject()->timeStep();
+    m_scene->timeStep();
     update();
 }

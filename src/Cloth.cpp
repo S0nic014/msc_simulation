@@ -2,8 +2,11 @@
 #include <fmt/format.h>
 #include <GL/GL.h>
 
-Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesHeight)
+Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesHeight, ngl::Vec3 originPosition)
 {
+    // Move origin transform
+    m_transform.setPosition(originPosition);
+
     // Generating particles grid and constraints between them
 
     m_numParticlesWidth = numParticlesWidth;
@@ -20,6 +23,7 @@ Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesH
             ngl::Vec3 position = {width * (x / (float)numParticlesWidth),
                                   -height * (y / (float)numParticlesHeight),
                                   0};
+            position += m_transform.getPosition();
             m_particles[y * numParticlesWidth + x] = std::make_shared<Particle>(position);
         }
     }
@@ -74,6 +78,15 @@ Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesH
 
         getParticle(numParticlesWidth - 1 - i, 0)->offsetPosition({-0.5f, 0.0f, 0.0f});
         getParticle(numParticlesWidth - 1 - i, 0)->setMovable(false);
+    }
+}
+
+void Cloth::move(ngl::Vec3 position)
+{
+    m_transform.setPosition(position);
+    for (auto p : m_particles)
+    {
+        p->offsetPosition(position, true);
     }
 }
 
@@ -156,6 +169,14 @@ void Cloth::addForce(const ngl::Vec3 direction)
     for (auto p : m_particles)
     {
         p->addForce(direction);
+    }
+}
+
+void Cloth::applyGravity()
+{
+    for (auto p : m_particles)
+    {
+        p->applyGravity(m_gravity);
     }
 }
 
