@@ -15,7 +15,7 @@ project(ClothNGL)
 set(TargetName ClothNGL)
 # Instruct CMake to run moc automatically when needed (Qt projects only)
 set(CMAKE_AUTOMOC ON)
-# find Qt libs
+# Find packages
 find_package(Qt5Widgets)
 find_package(glm CONFIG REQUIRED)
 find_package(OpenEXR CONFIG REQUIRED)
@@ -39,6 +39,13 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 									${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
 									${PROJECT_SOURCE_DIR}/include/Viewport.h
 									${PROJECT_SOURCE_DIR}/include/MainWindow.h
+									# Simulation members
+									${PROJECT_SOURCE_DIR}/include/Particle.h
+									${PROJECT_SOURCE_DIR}/src/Particle.cpp
+									${PROJECT_SOURCE_DIR}/include/Constraint.h
+									${PROJECT_SOURCE_DIR}/src/Constraint.cpp
+									${PROJECT_SOURCE_DIR}/include/Cloth.h
+									${PROJECT_SOURCE_DIR}/src/Cloth.cpp
 
 			# ${PROJECT_SOURCE_DIR}/shaders/Vertex.glsl
 			# ${PROJECT_SOURCE_DIR}/shaders/Fragment.glsl
