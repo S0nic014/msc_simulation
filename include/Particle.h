@@ -17,9 +17,10 @@ public:
     void setMovable(bool state) { m_isMovable = state; }
     ngl::Vec3 &position() { return m_pos; }
     ngl::Vec3 &normal() { return m_accumulatedNormal; }
-    void resetAcceleration() { m_acceleration = {0.0f, 0.0f, 0.0f}; }
-    void resetNormal() { m_accumulatedNormal = {0.0f, 0.0f, 0.0f}; }
+    void resetAcceleration() { m_acceleration = ngl::Vec3(0.0f, 0.0f, 0.0f); }
+    void resetNormal() { m_accumulatedNormal = ngl::Vec3(0.0f, 0.0f, 0.0f); }
 
+    void drawSphere() const;
     void addForce(ngl::Vec3 force);
     void offsetPosition(const ngl::Vec3 offset);
     void addToNormal(ngl::Vec3 normal);

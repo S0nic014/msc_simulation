@@ -7,6 +7,7 @@
 #include <ngl/Util.h>
 #include <QtGui/QSurfaceFormat>
 #include "Viewport.h"
+#include "Cloth.h"
 
 Viewport::Viewport()
 {
@@ -49,8 +50,7 @@ void Viewport::initializeGL()
     // enable multisampling for smoother drawing
     glEnable(GL_MULTISAMPLE);
     ngl::VAOPrimitives::createLineGrid("floor", 40, 40, 100);
-    ngl::VAOPrimitives::createSphere("joint", 0.2, 100);
-    ngl::VAOPrimitives::createSphere("target", 0.1, 100);
+    ngl::VAOPrimitives::createSphere("particleSphere", 0.1, 100);
     m_view = ngl::lookAt({0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
     startTimer(10);
 }
@@ -80,9 +80,21 @@ void Viewport::paintGL()
     ngl::ShaderLib::setUniform("Colour", 0.6f, 0.6f, 0.6f, 1.0f);
     // Draw objects
     ngl::VAOPrimitives::draw("floor");
+    if (m_scene->clothObject() != nullptr)
+    {
+        for (auto particle : m_scene->clothObject()->particles())
+        {
+            tx.setPosition(particle->position());
+            ngl::ShaderLib::setUniform("Colour", 0.0f, 0.0f, 0.8f, 1.0f);
+            loadMatrixToColourShader(tx);
+            particle->drawSphere();
+        }
+    }
 }
 
 void Viewport::timerEvent(QTimerEvent *)
 {
+    m_scene->clothObject()->windForce(ngl::Vec3(0.5f, 0.0f, 0.2f) * 0.05f);
+    m_scene->clothObject()->timeStep();
     update();
 }

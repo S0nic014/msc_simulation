@@ -21,10 +21,11 @@ private:
 
     ngl::Vec3 calculateTriangleNormal(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3);
     void addWindForceToTringle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3, const ngl::Vec3 direction);
-    void drawTriangle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3, const ngl::Vec3 color);
+    void drawTriangle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3);
 
 public:
     Cloth(float width, float height, int numParticlesWidth, int numParticlesHeight);
+    std::vector<std::shared_ptr<Particle>> particles() const { return m_particles; }
     float damping() const { return m_damping; }
     void setDamping(const float value) { m_damping = value; }
     float stepSize() const { return m_simulationStepSize; }

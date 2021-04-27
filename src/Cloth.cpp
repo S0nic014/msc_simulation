@@ -1,4 +1,6 @@
 #include "Cloth.h"
+#include <fmt/format.h>
+#include <GL/GL.h>
 
 Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesHeight)
 {
@@ -82,7 +84,7 @@ ngl::Vec3 Cloth::calculateTriangleNormal(std::shared_ptr<Particle> p1, std::shar
     return v1.cross(v2);
 }
 
-void Cloth::drawTriangle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3, const ngl::Vec3 color)
+void Cloth::drawTriangle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle> p2, std::shared_ptr<Particle> p3)
 {
     ngl::Vec3 p1Normal = p1->normal();
     ngl::Vec3 p2Normal = p2->normal();
@@ -90,8 +92,18 @@ void Cloth::drawTriangle(std::shared_ptr<Particle> p1, std::shared_ptr<Particle>
     p1Normal.normalize();
     p2Normal.normalize();
     p3Normal.normalize();
+
+    float positions[9] = {p1->position()[0], p1->position()[1], p1->position()[2],
+                          p2->position()[0], p2->position()[1], p2->position()[2],
+                          p3->position()[0], p3->position()[1], p3->position()[2]};
+
     // TODO: Drawing triagle from particles
-    // glColor3fv((GLfloat *)&color);
+    unsigned int triBuffer;
+    glGenBuffers(1, &triBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, triBuffer);
+    glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), positions, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 
     // glNormal3fv((GLfloat *)&(p1Normal));
     // glVertex3fv((GLfloat *)&(p1->position()));
@@ -128,25 +140,15 @@ void Cloth::drawShaded()
         }
     }
     // TODO: Draw shaded mesh
-    // glbegin(GL_TRIANGLES);
-    // for (int x = 0; x < m_numParticlesWidth - 1; x++)
-    // {
-    //     for (int y = 0; y < m_numParticlesHeight - 1; y++)
-    //     {
-    //         ngl::Vec3 color = {0.0f, 0.0f, 0.0f};
-    //         if (x % 2)
-    //         {
-    //             color = {0.06f, 0.2f, 0.2f};
-    //         }
-    //         else
-    //         {
-    //             color = {1.0f, 1.0f, 1.0f};
-    //         }
-    //         drawTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1), color);
-    //         drawTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1), color);
-    //     }
-    // }
-    // glEnd();
+    for (int x = 0; x < m_numParticlesWidth - 1; x++)
+    {
+        for (int y = 0; y < m_numParticlesHeight - 1; y++)
+        {
+            drawTriangle(getParticle(x + 1, y), getParticle(x, y), getParticle(x, y + 1));
+            drawTriangle(getParticle(x + 1, y + 1), getParticle(x + 1, y), getParticle(x, y + 1));
+            glDrawArrays(GL_TRIANGLES, 0, 3);
+        }
+    }
 }
 
 void Cloth::addForce(const ngl::Vec3 direction)
@@ -196,9 +198,12 @@ void Cloth::sphereCollision(const ngl::Vec3 centerPoint, const float radius)
 
 void Cloth::timeStep()
 {
-    for (auto cnstr : m_constraints)
+    for (int i = 0; i < m_constraintIterations; i++)
     {
-        cnstr->satisfy();
+        for (auto cnstr : m_constraints)
+        {
+            cnstr->satisfy();
+        }
     }
 
     for (auto p : m_particles)

@@ -13,6 +13,7 @@ void Constraint::satisfy()
     ngl::Vec3 p1Top2 = p2->position() - p1->position();
     float currentDistance = p1Top2.length();
     ngl::Vec3 correctiveVec = p1Top2 * (1 - m_restDistance / currentDistance);
-    p1->offsetPosition(correctiveVec * 0.5);
-    p2->offsetPosition(-correctiveVec * 0.5);
+    ngl::Vec3 correctiveHalf = correctiveVec * 0.5f;
+    p1->offsetPosition(correctiveHalf);
+    p2->offsetPosition(-correctiveHalf);
 }

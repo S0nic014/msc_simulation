@@ -4,4 +4,5 @@
 
 Scene::Scene()
 {
+    m_cloth = std::make_shared<Cloth>(14, 10, 45, 55);
 }

@@ -1,3 +1,4 @@
+#include "ngl/VAOPrimitives.h"
 #include "Particle.h"
 
 void Particle::addForce(ngl::Vec3 force)
@@ -31,4 +32,9 @@ void Particle::timeStep(const float damping, float stepSize)
     m_pos += (m_pos - m_oldPos) * (1.0 - damping) + m_acceleration * stepSize;
     m_oldPos = storedPos;
     resetAcceleration();
+}
+
+void Particle::drawSphere() const
+{
+    ngl::VAOPrimitives::draw("particleSphere");
 }
