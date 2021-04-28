@@ -1,5 +1,4 @@
-#ifndef CLOTH_H
-#define CLOTH_H
+#pragma once
 #include <ngl/Vec3.h>
 #include <ngl/Transformation.h>
 #include <vector>
@@ -48,5 +47,3 @@ public:
     void timeStep();
     void sphereCollision(const ngl::Vec3 centerPoint, const float radius);
 };
-
-#endif

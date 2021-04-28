@@ -1,5 +1,4 @@
-#ifndef VIEWPORT_H_
-#define VIEWPORT_H_
+#pragma once
 #include "WindowParams.h"
 #include <ngl/Transformation.h>
 #include "Scene.h"
@@ -34,5 +33,3 @@ private:
     ngl::Mat4 m_globalMouseTX;
     Scene *m_scene;
 };
-
-#endif

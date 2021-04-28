@@ -8,7 +8,7 @@ void Particle::addForce(ngl::Vec3 force)
 
 void Particle::applyGravity(const float gravityValue)
 {
-    m_acceleration.m_y -= gravityValue;
+    addForce(ngl::Vec3(0.0f, -gravityValue, 0.0f));
 }
 
 void Particle::offsetPosition(const ngl::Vec3 offset, bool ignorePinned)

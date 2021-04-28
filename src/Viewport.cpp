@@ -49,8 +49,7 @@ void Viewport::initializeGL()
     glEnable(GL_DEPTH_TEST);
     // enable multisampling for smoother drawing
     glEnable(GL_MULTISAMPLE);
-    ngl::VAOPrimitives::createLineGrid("floor", 40, 40, 100);
-    ngl::VAOPrimitives::createSphere("particleSphere", 0.1, 100);
+    m_scene->registerVAOS();
     m_view = ngl::lookAt({0.0f, 20.0f, 20.0f}, {0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f});
     startTimer(0);
 }
@@ -89,6 +88,13 @@ void Viewport::paintGL()
             loadMatrixToColourShader(tx);
             particle->drawSphere();
         }
+    }
+    for (auto collider : m_scene->allSphereColliders())
+    {
+        tx.setMatrix(collider->m_transform.getMatrix());
+        ngl::ShaderLib::setUniform("Colour", collider->color());
+        loadMatrixToColourShader(tx);
+        collider->draw();
     }
 }
 

@@ -1,5 +1,4 @@
-#ifndef CONSTRAINT_H
-#define CONSTRAINT_H
+#pragma once
 #include <memory>
 #include "Particle.h"
 
@@ -14,5 +13,3 @@ public:
     std::shared_ptr<Particle> p2;
     void satisfy();
 };
-
-#endif

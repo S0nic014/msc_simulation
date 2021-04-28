@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H_
-#define MAINWINDOW_H_
+#pragma once
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
@@ -29,5 +28,3 @@ private:
     QVBoxLayout *m_mainLayout;
     QWidget *m_mainWidget;
 };
-
-#endif

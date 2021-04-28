@@ -1,5 +1,4 @@
-#ifndef PARTICLE_H_
-#define PARTICLE_H_
+#pragma once
 #include <ngl/Vec3.h>
 
 class Particle
@@ -27,5 +26,3 @@ public:
     void addToNormal(ngl::Vec3 normal);
     void timeStep(const float damping, const float stepSize);
 };
-
-#endif
