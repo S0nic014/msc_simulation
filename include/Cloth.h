@@ -32,6 +32,7 @@ public:
     float damping() const { return m_damping; }
     void setDamping(const float value) { m_damping = value; }
     float stepSize() const { return m_simulationStepSize; }
+    float stepSize2() const { return m_simulationStepSize * m_simulationStepSize; }
     void setStepSize(const float newSize) { m_simulationStepSize = newSize; }
     int constraintIterations() const { return m_constraintIterations; }
     void setConstraintIterations(const int value) { m_constraintIterations = value; }
