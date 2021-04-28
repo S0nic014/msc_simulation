@@ -12,7 +12,6 @@ class ClothParamsWidget : public QGroupBox
 
 private:
     Scene *m_scene;
-    std::shared_ptr<Cloth> m_cloth;
     QDoubleSpinBox *m_dampingField;
     QDoubleSpinBox *m_simulationStepField;
     QSpinBox *m_constraintIterationsField;

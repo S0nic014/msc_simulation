@@ -4,7 +4,6 @@
 ClothParamsWidget ::ClothParamsWidget(Scene *scene)
 {
     m_scene = scene;
-    m_cloth = scene->clothObject();
     setTitle("Cloth");
     createWidgets();
     createLayouts();
@@ -49,23 +48,24 @@ void ClothParamsWidget::createConnections()
 
 void ClothParamsWidget::updateValues()
 {
-    if (!m_cloth)
-    {
-        return;
-    }
-
-    m_dampingField->setValue(m_cloth->damping());
-    m_simulationStepField->setValue(m_cloth->stepSize());
-    m_constraintIterationsField->setValue(m_cloth->constraintIterations());
-    m_gravityField->setValue(m_cloth->gravity());
     m_windDirectionWidget->setValue(m_scene->windDirection());
+    if (m_scene->clothObject())
+    {
+        m_dampingField->setValue(m_scene->clothObject()->damping());
+        m_simulationStepField->setValue(m_scene->clothObject()->stepSize());
+        m_constraintIterationsField->setValue(m_scene->clothObject()->constraintIterations());
+        m_gravityField->setValue(m_scene->clothObject()->gravity());
+    }
 }
 
 void ClothParamsWidget::updateCloth()
 {
-    m_cloth->setDamping(m_dampingField->value());
-    m_cloth->setStepSize(m_simulationStepField->value());
-    m_cloth->setConstraintIterations(m_constraintIterationsField->value());
-    m_cloth->setGravity(m_gravityField->value());
     m_scene->setWindDirection(m_windDirectionWidget->value());
+    if (m_scene->clothObject())
+    {
+        m_scene->clothObject()->setDamping(m_dampingField->value());
+        m_scene->clothObject()->setStepSize(m_simulationStepField->value());
+        m_scene->clothObject()->setConstraintIterations(m_constraintIterationsField->value());
+        m_scene->clothObject()->setGravity(m_gravityField->value());
+    }
 }
