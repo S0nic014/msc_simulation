@@ -32,13 +32,19 @@ add_executable(${TargetName})
 # Add NGL include path
 include_directories(include $ENV{HOME}/NGL/include)
 target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp  
+									${PROJECT_SOURCE_DIR}/include/Scene.h
 									${PROJECT_SOURCE_DIR}/src/Scene.cpp  
-									${PROJECT_SOURCE_DIR}/include/Scene.h  
 									${PROJECT_SOURCE_DIR}/src/ViewportControls.cpp  
-									${PROJECT_SOURCE_DIR}/src/Viewport.cpp  
+									${PROJECT_SOURCE_DIR}/include/MainWindow.h
 									${PROJECT_SOURCE_DIR}/src/MainWindow.cpp
 									${PROJECT_SOURCE_DIR}/include/Viewport.h
-									${PROJECT_SOURCE_DIR}/include/MainWindow.h
+									${PROJECT_SOURCE_DIR}/src/Viewport.cpp  
+									${PROJECT_SOURCE_DIR}/include/ClothParamsWidget.h
+									${PROJECT_SOURCE_DIR}/src/ClothParamsWidget.cpp
+									${PROJECT_SOURCE_DIR}/include/AttribEditorWidget.h
+									${PROJECT_SOURCE_DIR}/src/AttribEditorWidget.cpp
+									${PROJECT_SOURCE_DIR}/include/Vec3Widget.h
+									${PROJECT_SOURCE_DIR}/src/Vec3Widget.cpp
 									# Simulation members
 									${PROJECT_SOURCE_DIR}/include/Particle.h
 									${PROJECT_SOURCE_DIR}/src/Particle.cpp

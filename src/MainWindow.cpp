@@ -2,6 +2,7 @@
 #include <QtWidgets/QMenuBar>
 #include <QtGui/QColor>
 #include "MainWindow.h"
+#include "AttribEditorWidget.h"
 
 MainWindow::MainWindow()
 {
@@ -34,12 +35,12 @@ void MainWindow::createWidgets()
     m_mainWidget = new QWidget();
     setCentralWidget(m_mainWidget);
     m_viewport = new Viewport();
-    // AttribEditor *attribEditor = new AttribEditor(m_viewport->scene());
+    AttribEditorWidget *attribEditor = new AttribEditorWidget(m_viewport->scene());
 
     //Attrib dock
     m_attribEditorDock = new QDockWidget(tr("Attribute Editor"), this);
     m_attribEditorDock->setAllowedAreas(Qt::RightDockWidgetArea | Qt::LeftDockWidgetArea);
-    // m_attribEditorDock->setWidget(attribEditor);
+    m_attribEditorDock->setWidget(attribEditor);
     addDockWidget(Qt::RightDockWidgetArea, m_attribEditorDock);
 }
 
