@@ -25,6 +25,9 @@ public:
     void registerVAOS();
     void timeStep();
 
+public slots:
+    void generateCloth(const float width, const float height, const unsigned int numParticlesWidth, const unsigned int numParticlesHeight, ngl::Vec3 atPosition);
+
 signals:
     void changed();
 };

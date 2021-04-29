@@ -8,7 +8,8 @@ Cloth::Cloth(float width, float height, int numParticlesWidth, int numParticlesH
     m_transform.setPosition(originPosition);
 
     // Generating particles grid and constraints between them
-
+    m_width = width;
+    m_height = height;
     m_numParticlesWidth = numParticlesWidth;
     m_numParticlesHeight = numParticlesHeight;
 

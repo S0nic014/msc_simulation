@@ -6,7 +6,7 @@
 Scene::Scene()
 {
     ngl::Vec3 clothPosition = {-10.0f, 10.0f, 0.0f};
-    m_cloth = std::make_shared<Cloth>(14, 10, 25, 35, clothPosition);
+    generateCloth(14, 10, 25, 35, clothPosition);
     setWindDirection(ngl::Vec3(0.2f, 0.0f, 0.2f));
     addSphereCollider({-5.0f, 6.0f, 3.0f}, 2.0f, {0.8f, 0.2f, 0.0f}, "sphere");
     addSphereCollider({0.0f, 3.0f, 4.0f}, 3.0f, {0.0f, 0.8f, 0.1f}, "sphere");
@@ -14,12 +14,15 @@ Scene::Scene()
 
 void Scene::timeStep()
 {
-    m_cloth->windForce(m_windDirection * m_cloth->stepSize2());
-    m_cloth->applyGravity();
-    m_cloth->timeStep();
-    for (auto collider : m_sphereColliders)
+    if (m_cloth)
     {
-        m_cloth->sphereCollision(collider->m_transform.getPosition(), collider->radius());
+        m_cloth->windForce(m_windDirection * m_cloth->stepSize2());
+        m_cloth->applyGravity();
+        m_cloth->timeStep();
+        for (auto collider : m_sphereColliders)
+        {
+            m_cloth->sphereCollision(collider->m_transform.getPosition(), collider->radius());
+        }
     }
 }
 
@@ -41,10 +44,8 @@ std::shared_ptr<SphereCollider> Scene::addSphereCollider(const ngl::Vec3 positio
     {
         if (indexedName == existingCollider->name())
         {
-            fmt::print("Name {} already exists\n", indexedName);
             id++;
             indexedName = fmt::format("{0}{1}", name, id);
-            fmt::print("Generated name: {}\n", indexedName);
         }
     }
 
@@ -53,6 +54,11 @@ std::shared_ptr<SphereCollider> Scene::addSphereCollider(const ngl::Vec3 positio
     fmt::print("Created sphere collider: {}\n", newSphere->name());
 
     return newSphere;
+}
+
+void Scene::generateCloth(const float width, const float height, const unsigned int numParticlesWidth, const unsigned int numParticlesHeight, ngl::Vec3 atPosition)
+{
+    m_cloth = std::make_shared<Cloth>(width, height, numParticlesWidth, numParticlesHeight, atPosition);
 }
 
 void Scene::registerVAOS()

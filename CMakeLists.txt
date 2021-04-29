@@ -45,6 +45,8 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 									${PROJECT_SOURCE_DIR}/src/AttribEditorWidget.cpp
 									${PROJECT_SOURCE_DIR}/include/Vec3Widget.h
 									${PROJECT_SOURCE_DIR}/src/Vec3Widget.cpp
+									${PROJECT_SOURCE_DIR}/include/Util.h
+									${PROJECT_SOURCE_DIR}/src/Util.cpp
 									# Simulation members
 									${PROJECT_SOURCE_DIR}/include/Particle.h
 									${PROJECT_SOURCE_DIR}/src/Particle.cpp
