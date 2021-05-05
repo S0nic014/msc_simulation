@@ -20,9 +20,9 @@ void ClothParamsWidget::createWidgets()
     m_constraintIterationsField = new QSpinBox();
     m_gravityField = new QDoubleSpinBox();
     m_windDirectionWidget = new Vec3Widget("Wind:");
-    m_dampingField->setSingleStep(0.1);
+    m_dampingField->setSingleStep(0.01);
     m_simulationStepField->setSingleStep(0.1);
-    m_gravityField->setSingleStep(0.1);
+    m_gravityField->setSingleStep(0.01);
     m_windDirectionWidget->m_xField->setSingleStep(0.1);
     m_windDirectionWidget->m_yField->setSingleStep(0.1);
     m_windDirectionWidget->m_zField->setSingleStep(0.1);
