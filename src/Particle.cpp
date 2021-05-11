@@ -25,16 +25,16 @@ void Particle::addToNormal(ngl::Vec3 normal)
     m_accumulatedNormal += normal;
 }
 
-void Particle::timeStep(const float damping, float stepSize)
+void Particle::timeStep(const float damping, const float stepSize)
 {
     if (!m_isMovable)
     {
         return;
     }
-    stepSize = stepSize * stepSize;
+    float stepSize2 = stepSize * stepSize;
 
     ngl::Vec3 storedPos = m_pos;
-    m_pos += (m_pos - m_oldPos) * (1.0 - damping) + m_acceleration * stepSize;
+    m_pos += (m_pos - m_oldPos) * (1.0f - damping) + m_acceleration * stepSize2;
     m_oldPos = storedPos;
     resetAcceleration();
 }
