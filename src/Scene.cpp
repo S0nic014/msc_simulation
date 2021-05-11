@@ -6,7 +6,7 @@
 Scene::Scene()
 {
     ngl::Vec3 clothPosition = {-10.0f, 10.0f, 0.0f};
-    generateCloth(14, 10, 25, 35, clothPosition);
+    generateCloth(14, 10, 35, 50, clothPosition);
     setWindDirection(ngl::Vec3(0.2f, 0.0f, 0.2f));
     addSphereCollider({-5.0f, 6.0f, 3.0f}, 2.0f, {0.8f, 0.2f, 0.0f}, "sphere");
     addSphereCollider({0.0f, 3.0f, 4.0f}, 3.0f, {0.0f, 0.8f, 0.1f}, "sphere");
@@ -51,6 +51,7 @@ std::shared_ptr<SphereCollider> Scene::addSphereCollider(const ngl::Vec3 positio
 
     auto newSphere = std::make_shared<SphereCollider>(position, radius, indexedName, color);
     m_sphereColliders.push_back(newSphere);
+    emit changed();
     fmt::print("Created sphere collider: {}\n", newSphere->name());
 
     return newSphere;
@@ -59,12 +60,13 @@ std::shared_ptr<SphereCollider> Scene::addSphereCollider(const ngl::Vec3 positio
 void Scene::generateCloth(const float width, const float height, const unsigned int numParticlesWidth, const unsigned int numParticlesHeight, ngl::Vec3 atPosition)
 {
     m_cloth = std::make_shared<Cloth>(width, height, numParticlesWidth, numParticlesHeight, atPosition);
+    emit changed();
 }
 
 void Scene::registerVAOS()
 {
     ngl::VAOPrimitives::createLineGrid("floor", 40, 40, 100);
-    ngl::VAOPrimitives::createSphere("particleSphere", 0.1, 100.0f);
+    ngl::VAOPrimitives::createSphere("particleSphere", 0.1f, 100.0f);
     for (auto collider : m_sphereColliders)
     {
         ngl::VAOPrimitives::createSphere(collider->name(), collider->radius(), 100.0f);

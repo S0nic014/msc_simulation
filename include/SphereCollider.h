@@ -1,5 +1,6 @@
 #pragma once
 #include <ngl/Transformation.h>
+#include <QtCore/QString>
 
 class SphereCollider
 {
@@ -18,6 +19,10 @@ public:
     ngl::Vec4 color() const { return m_color; }
     void setColor(ngl::Vec4 newColor) { m_color = newColor; }
     std::string name() const { return m_name; }
+    QString qname() const { return QString::fromUtf8(m_name.c_str()); }
     void setName(const std::string &newName) { m_name = newName; }
+    ngl::Vec3 position() const { return m_transform.getPosition(); }
+    void setPosition(const ngl::Vec3 newPosition) { m_transform.setPosition(newPosition); }
+    void offsetPosition(const ngl::Vec3 offset) { m_transform.addPosition(offset); }
     void draw();
 };

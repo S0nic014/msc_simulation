@@ -12,6 +12,7 @@ AttribEditorWidget ::AttribEditorWidget(Scene *scene)
 void AttribEditorWidget::createWidgets()
 {
     m_clothWidget = new ClothParamsWidget(m_scene);
+    m_collidersWidget = new CollidersWidget(m_scene);
 }
 
 void AttribEditorWidget::createLayouts()
@@ -19,6 +20,7 @@ void AttribEditorWidget::createLayouts()
 
     QVBoxLayout *mainLayout = new QVBoxLayout();
     mainLayout->addWidget(m_clothWidget);
+    mainLayout->addWidget(m_collidersWidget);
     mainLayout->addStretch();
     setLayout(mainLayout);
 }

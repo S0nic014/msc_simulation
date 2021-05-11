@@ -56,6 +56,8 @@ target_sources(${TargetName} PRIVATE ${PROJECT_SOURCE_DIR}/src/main.cpp
 									${PROJECT_SOURCE_DIR}/src/Cloth.cpp
 									${PROJECT_SOURCE_DIR}/include/SphereCollider.h
 									${PROJECT_SOURCE_DIR}/src/SphereCollider.cpp
+									${PROJECT_SOURCE_DIR}/include/CollidersWidget.h
+									${PROJECT_SOURCE_DIR}/src/CollidersWidget.cpp
 
 			# ${PROJECT_SOURCE_DIR}/shaders/Vertex.glsl
 			# ${PROJECT_SOURCE_DIR}/shaders/Fragment.glsl
